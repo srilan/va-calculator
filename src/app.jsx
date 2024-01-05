@@ -39,7 +39,7 @@ export function App() {
         *NavBar here*
       </div>
 
-      <div class='flex flex-col w-full bg-[#011936] h-full py-12 px-5'>
+      <div class='flex flex-col w-full bg-white h-full py-12 px-5'>
 
         <div className='flex'>
           <div class='w-3/4 flex justify-center border-cyan-100'>
@@ -52,15 +52,58 @@ export function App() {
             </div>
           </div>
 
-          <div class='md:w-1/3 flex flex-col bg-[#9FC490] p-5' >
-              *Disability rating area*
+          <div class='md:w-1/3 flex flex-col p-5 bg-slate-300 items-center' >
+  
+              <div class='flex flex-col w-full items-center border-b-2 border-slate-500 pb-3'>
+                <div class='text-3xl bebas'>
+                  Total Disablity Rating
+                </div>
+                 {/* Radial Progress Bar */}
+                <div class="relative w-40 h-40">
+                  <svg class="w-full h-full" viewBox="0 0 100 100">
+
+                    <circle
+                      class="text-gray-200 stroke-current"
+                      stroke-width="10"
+                      
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                    ></circle>
+
+                    <circle
+                      class="text-[#b52d38]  progress-ring__circle stroke-current"
+                      stroke-width="10"
+                      stroke-linecap="round"
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                      stroke-dashoffset="calc(400 - (400 * 45) / 100)"
+                    ></circle>
+                  
+                    <text x="50" y="50" font-size="32" text-anchor="middle" alignment-baseline="middle" class='bebas'>70%</text>
+
+                  </svg>
+                </div>
+              </div>
+
+              <div className='bebas text-3xl mt-4'>
+                Total Monthly Compensation
+              </div>
+
+              <div class='text-2xl mont mt-2'>
+                $ 4,365.60
+              </div>
+
           </div>
         </div>
 
         {}
         <div className='flex w-full justify-center mt-6'>
-          <div className='w-full border-[#C0DFA1] bg-[#000e1e] ps-20 py-3 pe-3 relative text-white' id='percContainer' style={{borderWidth: '1px'}}>
-            <div class='flex scrollbar-hide overflow-x-auto'>
+          <div className='w-full border-[#184997] bg-white ps-20 pt-3 pb-2 pe-3 relative text-white' id='percContainer' style={{borderWidth: '2px'}}>
+            <div class=''>
               {
                 ratings.map((item)=> <RatingsBtn elem={item} removeMe={removeRating} />)
               }

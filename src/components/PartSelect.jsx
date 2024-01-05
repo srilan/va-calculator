@@ -4,7 +4,7 @@ import PartOption from "./PartOption"
 
 const PartSelect = ({part, setPart, partDisplay, setPartDisplay}) => {
   const [hovered, setHovered] = useState(false)
-  const highlight = {fill : '#bd8a5a'}
+  const highlight = {fill : '#b52d38'}
 
   // Onclick callback to change the highlighted body part.
   const partClick = (partStr) => {
@@ -62,14 +62,14 @@ const PartSelect = ({part, setPart, partDisplay, setPartDisplay}) => {
         onMouseEnter={() => {setHovered(true)}}
         onMouseLeave={() => {setHovered(false)}}
      >
-      <div className="flex min-w-[130px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#000e1e] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl"
+      <div className="flex min-w-[130px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl"
           >
             <span class='pe-2 none tracking-wide'> {partDisplay} </span>
             <img src={Down} alt="Arrow" class='w-4' />
           </div>
           {
             hovered && (
-              <div class='bg-white w-full py-3 ps-4 pe-2 absolute'>
+              <div class='bg-white w-full py-3 ps-4 pe-2 absolute border-2 border-[#184997]'>
                 <PartOption text="Head" pclickEvent={() => { partClick('head')}}/>
                 <PartOption text="Left Arm" pclickEvent={() => { partClick('larm')}}/>
                 <PartOption text="Right Arm" pclickEvent={() => { partClick('rarm')}}/>
