@@ -17,6 +17,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cls-1, .cls-2{
+  fill:#29abe2;
+}
+.cls-2{
+  stroke:#64fff4;
+  stroke-miterlimit:10;
+  stroke-width:2.5px;
+  cursor: pointer;
+}
+
+.sen {
+  font-family: 'Sen', sans-serif;
+}
+
+.bebas {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -26,10 +44,11 @@ a:hover {
   color: #535bf2;
 }
 
+.part option {
+  @apply text-sm
+}
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -39,23 +58,19 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+
+.btnHov:hover{
+  border-color: #bd8a5a;
 }
-button:hover {
-  border-color: #646cff;
+.btnHov:hover span {
+  color : #bd8a5a
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+#percContainer:after{
+  content: 'Ratings';
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  @apply h-full top-0 left-0 bg-[#C0DFA1] align-middle p-2 w-[70px] text-center text-lg text-black flex justify-center items-center
 }
 
 @media (prefers-color-scheme: light) {
@@ -66,7 +81,7 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  /* button {
     background-color: #f9f9f9;
-  }
+  } */
 }
