@@ -73,6 +73,15 @@ h1 {
   @apply h-full top-0 left-0 bg-[#C0DFA1] align-middle p-2 w-[70px] text-center text-lg text-black flex justify-center items-center
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

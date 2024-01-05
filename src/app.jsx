@@ -4,7 +4,7 @@ import PercentSelect from './components/PercentSelect'
 import RatingsBtn from './components/RatingsBtn'
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [ratingId, setRatingId] = useState(1)
   // State for parts to highligt in body diagram
   const [part, setPart] = useState({
     head: false,
@@ -19,15 +19,23 @@ export function App() {
 
   // State for array of ratings selected to display
   const [ratings, setRatings] = useState([]);
+
   // function to add new ratings
-  const ratingClicked = (rating, part) => {
-    setRatings([ ...ratings, {rate: rating, part: part}])
+  const ratingClicked = (rating, part,id) => {
+    setRatings([ ...ratings, {rate: rating, part: part, id: id}])
   }
- 
+  
+  // Remove rating
+  const removeRating = (id) => {
+    let newRates = ratings.filter((item)=> item.id != id);
+    setRatings(newRates)
+  }
+
   console.log(ratings)
+  
   return (
     <>
-      <div class='w-full bg-black text-white p-3 mb-5'>
+      <div class='w-full bg-black text-white p-3'>
         *NavBar here*
       </div>
 
@@ -40,7 +48,7 @@ export function App() {
             </div>
 
             <div class=' w-1/3 flex flex-col items-center text-white justify-center' >
-              <PercentSelect btnRatingClick={ratingClicked} bodyPart={partDisplay} />
+              <PercentSelect btnRatingClick={ratingClicked} bodyPart={partDisplay} id={ratingId} setRatingId={setRatingId} />
             </div>
           </div>
 
@@ -49,16 +57,17 @@ export function App() {
           </div>
         </div>
 
+        {}
         <div className='flex w-full justify-center mt-6'>
           <div className='w-full border-[#C0DFA1] bg-[#000e1e] ps-20 py-3 pe-3 relative text-white' id='percContainer' style={{borderWidth: '1px'}}>
-            <div class=''>
+            <div class='flex scrollbar-hide overflow-x-auto'>
               {
-                ratings.map((item)=> <RatingsBtn percentage={item.rate} part={item.part} />)
+                ratings.map((item)=> <RatingsBtn elem={item} removeMe={removeRating} />)
               }
               {
                 (ratings.length == 0) && (
                   <div class='opacity-0 pointer-events-none'>
-                    <RatingsBtn percentage={0} part={''}/>
+                    <RatingsBtn elem={{part:'',rate: 0, id:0}} removeMe={removeRating}/>
                   </div>
                 )
               }
