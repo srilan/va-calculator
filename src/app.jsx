@@ -42,7 +42,6 @@ export function App() {
   }, [childrenAbove18, childrenUnder18]);
 
   const [ratingId, setRatingId] = useState(1);
-  const [ratingId, setRatingId] = useState(1);
   const [disabilityRating, setDisabilityRating] = useState({
     bilateralFactor: undefined,
     calculatedRating: undefined,
@@ -69,9 +68,6 @@ export function App() {
     setRatings([...ratings, { rate: rating, part: part, id: id }]);
   };
 
-  const ratingClicked = (rating, part, id) => {
-    setRatings([...ratings, { rate: rating, part: part, id: id }]);
-  };
 
   useEffect(() => {
     recalculate();
@@ -185,45 +181,53 @@ export function App() {
             </div>
           </div>
 
-          <div class="md:w-1/3 flex flex-col p-5 bg-slate-300 items-center">
-            <div class="flex flex-col w-full items-center border-b-2 border-slate-500 pb-3">
-              <div class="text-3xl bebas">Total Disablity Rating</div>
+          <div class='lg:w-1/4 flex flex-col p-5 bg-slate-300 items-center' >
+  
+              <div class='flex flex-col w-full items-center border-b-2 border-slate-500 pb-3'>
+                <div class='text-3xl bebas'>
+                  Total Disablity Rating
+                </div>
+                 {/* Radial Progress Bar */}
+                <div class="relative w-32 h-32">
+                  <svg class="w-full h-full" viewBox="0 0 100 100">
 
-              <div class="relative w-40 h-40">
-                <svg class="w-full h-full" viewBox="0 0 100 100">
-                  <circle
-                    class="text-gray-200 stroke-current"
-                    stroke-width="10"
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="transparent"
-                  ></circle>
+                    <circle
+                      class="text-gray-200 stroke-current"
+                      stroke-width="10"
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                    ></circle>
 
-                  <circle
-                    class="text-[#b52d38]  progress-ring__circle stroke-current"
-                    stroke-width="10"
-                    stroke-linecap="round"
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="transparent"
-                    stroke-dashoffset="calc(400 - (400 * 45) / 100)"
-                  ></circle>
-
-                  <text
-                    x="50"
-                    y="50"
-                    font-size="32"
-                    text-anchor="middle"
-                    alignment-baseline="middle"
-                    class="bebas"
-                  >
-                    70%
-                  </text>
-                </svg>
+                    <circle
+                      class="text-[#b52d38]  progress-ring__circle stroke-current"
+                      stroke-width="10"
+                      stroke-linecap="round"
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="transparent"
+                      stroke-dashoffset={"calc(400 - ("+ disabilityRating.disabilityRating/10 * 40 +" * 65) / 100)"}
+                    ></circle>
+                    {/* Change increments by 40. (the 200 one) */}
+                    {disabilityLoading ? (
+                      <>Loading</>
+                    ):(
+                      <text 
+                      x="50" 
+                      y="50" 
+                      font-size="32" 
+                      text-anchor="middle" 
+                      alignment-baseline="middle" 
+                      class='bebas'>
+                        {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
+                    </text>
+                    )}
+                  </svg>
+                </div>
               </div>
-            </div>
+
 
             <div className="bebas text-3xl mt-4">
               Total Monthly Compensation
@@ -281,13 +285,17 @@ export function App() {
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 COMBINED DISABILITY PERCENTAGE:
-                <span style="color: #184997"> 0% </span>
+                <span style="color: #184997">
+                  {disabilityRating.calculatedRating?disabilityRating.calculatedRating+'':'0'}%
+                </span>
               </h2>
             </div>
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 CURRENT DISABILITY RATING:
-                <span style="color: #184997"> 0% </span>
+                <span style="color: #184997"> 
+                  {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
+                </span>
               </h2>
             </div>
             <div class="bebas text-3xl my-2 lg:my-5">
