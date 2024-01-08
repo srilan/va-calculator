@@ -77,9 +77,13 @@ export function App() {
 
       body[thePart].push(elem.rate);
     })
+<<<<<<< HEAD
 
     setDisabilityLoading(true);
 
+=======
+    setDisabilityLoading(true);
+>>>>>>> spike/preact
     fetch('https://va-calc-be.onrender.com/calculator/disability-rating', {
       method: 'post',
       headers: {
@@ -163,9 +167,15 @@ export function App() {
                       cy="50"
                       r="40"
                       fill="transparent"
+<<<<<<< HEAD
                       stroke-dashoffset={"calc(400 - ("+ disabilityRating.disabilityRating/10 * 40 +" * 65) / 100)"}
                     ></circle>
                     {/* Change increments by 40. (the 200 one) */}
+=======
+                      stroke-dashoffset="calc(250)"
+                    ></circle>
+                  
+>>>>>>> spike/preact
                     {disabilityLoading ? (
                       <>Loading</>
                     ):(
@@ -176,7 +186,11 @@ export function App() {
                       text-anchor="middle" 
                       alignment-baseline="middle" 
                       class='bebas'>
+<<<<<<< HEAD
                         {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
+=======
+                        {disabilityRating.calculatedRating?disabilityRating.calculatedRating:''}
+>>>>>>> spike/preact
                     </text>
                     )}
                   </svg>
