@@ -2,9 +2,15 @@ import { useEffect, useState } from 'preact/hooks'
 import { PartSelect } from './components'
 import PercentSelect from './components/PercentSelect'
 import RatingsBtn from './components/RatingsBtn'
+5
 
 export function App() {
   const [ratingId, setRatingId] = useState(1)
+  const [disabilityRating, setDisabilityRating] = useState({
+    bilateralFactor: undefined,
+    calculatedRating: undefined,
+    disabilityRating: undefined,
+  });
   // State for parts to highligt in body diagram
   const [part, setPart] = useState({
     head: false,
@@ -14,6 +20,7 @@ export function App() {
     lleg: false,
     rleg: false
   });
+  const [disabilityLoading, setDisabilityLoading] = useState(false);
   // State for current selected Body Part
   const [partDisplay, setPartDisplay] = useState('Others')
 
@@ -68,11 +75,17 @@ export function App() {
       }
       body[thePart].push(elem.rate);
     })
+    setDisabilityLoading(true);
     fetch('https://va-calc-be.onrender.com/calculator/disability-rating', {
       method: 'post',
+      headers: {
+        'Content-Type':'application/json'
+      },
       body: JSON.stringify(body),
     }).then((r)=>r.json()).then((res)=> {
-      console.log("res", res)
+      setDisabilityRating(res);
+    }).finally(()=> {
+      setDisabilityLoading(false);
     })
     return body
   }
@@ -131,7 +144,6 @@ export function App() {
                     <circle
                       class="text-gray-200 stroke-current"
                       stroke-width="10"
-                      
                       cx="50"
                       cy="50"
                       r="40"
@@ -146,11 +158,22 @@ export function App() {
                       cy="50"
                       r="40"
                       fill="transparent"
-                      stroke-dashoffset="calc(400 - (400 * 45) / 100)"
+                      stroke-dashoffset="calc(250)"
                     ></circle>
                   
-                    <text x="50" y="50" font-size="32" text-anchor="middle" alignment-baseline="middle" class='bebas'>70%</text>
-
+                    {disabilityLoading ? (
+                      <>Loading</>
+                    ):(
+                      <text 
+                      x="50" 
+                      y="50" 
+                      font-size="32" 
+                      text-anchor="middle" 
+                      alignment-baseline="middle" 
+                      class='bebas'>
+                        {disabilityRating.calculatedRating?disabilityRating.calculatedRating:''}
+                    </text>
+                    )}
                   </svg>
                 </div>
               </div>
