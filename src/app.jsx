@@ -46,6 +46,7 @@ export function App() {
       right_leg: [],
       other: [],
     };
+
     ratings.forEach((elem) => {
       let thePart;
       /**
@@ -73,9 +74,16 @@ export function App() {
         default:
           thePart = 'other';
       }
+
       body[thePart].push(elem.rate);
     })
+<<<<<<< HEAD
+
     setDisabilityLoading(true);
+
+=======
+    setDisabilityLoading(true);
+>>>>>>> spike/preact
     fetch('https://va-calc-be.onrender.com/calculator/disability-rating', {
       method: 'post',
       headers: {
@@ -107,7 +115,7 @@ export function App() {
         <div className='flex flex-col lg:flex-row'>
           
           {/* Instruction Block */}
-          <div class='pt-10 pb-[60px] lg:pe-[40px] ps-4 lg:pt-5 bg-slate-200 sm:w-full lg:w-2/6 flex flex-col relative lg:border-r-2 border-[#184997] gap-10 justify-center'>
+          <div class='pt-10 pb-[60px] lg:pe-[45px] ps-10 lg:pt-5 bg-slate-200 sm:w-full lg:w-2/6 flex flex-col relative lg:border-r-2 border-[#184997] gap-10 justify-center'>
 
             <div class='absolute bottom-0 right-2/4 translate-x-2/4 lg:translate-x-0 lg:bottom-auto lg:right-[-18px] lg:top-2/4 bebas bg-[#184997] flex px-3 text-xl pt-2 pb-1 lg:rotate-[270deg] text-white rounded-t-xl tracking-wider'>
               STEP 1
@@ -120,6 +128,7 @@ export function App() {
               Choose the specific body part affected by your disability and indicate the percentage of impairment from 0% to 100%.
               </span>
           </div>
+
           {/* Diagram and Percent Buttons */}
           <div class='w-full lg:w-2/4 flex flex-col sm:flex-row justify-evenly relative border-2 border-[#184997]'>
             <div class='border-1 w-full sm:w-1/2 lg:w-1/3 flex flex-col items-center'>
@@ -138,7 +147,7 @@ export function App() {
                   Total Disablity Rating
                 </div>
                  {/* Radial Progress Bar */}
-                <div class="relative w-40 h-40">
+                <div class="relative w-32 h-32">
                   <svg class="w-full h-full" viewBox="0 0 100 100">
 
                     <circle
@@ -158,9 +167,15 @@ export function App() {
                       cy="50"
                       r="40"
                       fill="transparent"
+<<<<<<< HEAD
+                      stroke-dashoffset={"calc(400 - ("+ disabilityRating.disabilityRating/10 * 40 +" * 65) / 100)"}
+                    ></circle>
+                    {/* Change increments by 40. (the 200 one) */}
+=======
                       stroke-dashoffset="calc(250)"
                     ></circle>
                   
+>>>>>>> spike/preact
                     {disabilityLoading ? (
                       <>Loading</>
                     ):(
@@ -171,18 +186,22 @@ export function App() {
                       text-anchor="middle" 
                       alignment-baseline="middle" 
                       class='bebas'>
+<<<<<<< HEAD
+                        {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
+=======
                         {disabilityRating.calculatedRating?disabilityRating.calculatedRating:''}
+>>>>>>> spike/preact
                     </text>
                     )}
                   </svg>
                 </div>
               </div>
 
-              <div class='bebas text-3xl mt-4'>
+              <div class='bebas text-2xl mt-4'>
                 Total Monthly Compensation
               </div>
 
-              <div class='text-2xl mont mt-2'>
+              <div class='text-xl mont'>
                 $ 4,365.60
               </div>
 
@@ -191,8 +210,8 @@ export function App() {
 
         {/* Ratings Section */}
         <div className='flex w-full justify-center mt-6'>
-          <div className='w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 pt-3 pb-2 pe-3 relative text-white' id='percContainer' style={{borderWidth: '2px'}}>
-            <div class='h-full top-0 left-0 w-full h-[40px] lg:h-full bg-[#184997] align-middle p-2 lg:w-[70px] text-center text-sm font-semibold text-white flex justify-center items-center mont absolute'>
+          <div className='w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 pb-2 pe-3 relative text-white' id='percContainer' style={{borderWidth: '2px'}}>
+            <div class='top-0 left-0 w-full h-[40px] lg:h-full bg-[#184997] align-middle p-2 lg:w-[70px] text-center text-sm font-semibold text-white flex justify-center items-center mont absolute'>
               Ratings
             </div>
             <div class=''>
