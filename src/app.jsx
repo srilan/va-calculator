@@ -34,7 +34,7 @@ export function App() {
   };
 
   const calculateMonthlyPayment = () => {
-    setMonthlyPayment(childrenAbove18 + childrenUnder18);
+    setMonthlyPayment(childrenAbove18 + childrenUnder18); //dito papasok yung fetch ng formula
   };
 
   useEffect(() => {
