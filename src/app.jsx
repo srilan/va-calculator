@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import { PartSelect } from "./components";
 import PercentSelect from "./components/PercentSelect";
 import RatingsBtn from "./components/RatingsBtn";
@@ -9,6 +9,7 @@ export function App() {
   const [hasSpouse, setMaritalStatus] = useState(false);
   const [aidAndAttendance, setAidAndAttendance] = useState(false);
   const [dependentParents, setDependentParents] = useState(0);
+  const [monthlyPayment, setMonthlyPayment] = useState(0);
 
   const under18Clicked = (under18) => {
     setChildrenUnder18(Number(under18));
@@ -29,8 +30,16 @@ export function App() {
   };
 
   const dependentParentsClicked = (dependentParents) => {
-    setDependentParents(dependentParents);
+    setDependentParents(Number(dependentParents));
   };
+
+  const calculateMonthlyPayment = () => {
+    setMonthlyPayment(childrenAbove18 + childrenUnder18);
+  };
+
+  useEffect(() => {
+    calculateMonthlyPayment();
+  }, [childrenAbove18, childrenUnder18]);
 
   const [ratingId, setRatingId] = useState(1);
   // State for parts to highligt in body diagram
@@ -200,7 +209,7 @@ export function App() {
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 MONTHLY PAYMOUNT AMOUNT:
-                <span style="color: #184997"> 0% </span>
+                <span style="color: #184997"> {monthlyPayment}$ </span>
               </h2>
             </div>
           </div>
@@ -219,7 +228,7 @@ export function App() {
                 <div class="text-black">
                   <select
                     class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
-                    onChange={(e) => under18Clicked(e.target.value)}
+                    onInput={(e) => under18Clicked(e.target.value)}
                     value={childrenUnder18}
                   >
                     <option value="0">None</option>
@@ -250,7 +259,7 @@ export function App() {
                 <div class="text-black">
                   <select
                     class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
-                    onChange={(e) => above18Clicked(e.target.value)}
+                    onInput={(e) => above18Clicked(e.target.value)}
                     value={childrenAbove18}
                   >
                     <option value="0">None</option>
@@ -281,7 +290,7 @@ export function App() {
                   <div class="text-black">
                     <select
                       class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
-                      onChange={(e) => MaritalStatusClicked(e.target.value)}
+                      onInput={(e) => MaritalStatusClicked(e.target.value)}
                       value={hasSpouse ? "1" : "0"}
                     >
                       <option value="0">Single</option>
@@ -308,9 +317,7 @@ export function App() {
                     <div class="text-black">
                       <select
                         class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
-                        onChange={(e) =>
-                          aidAndAttendanceClicked(e.target.value)
-                        }
+                        onInput={(e) => aidAndAttendanceClicked(e.target.value)}
                         value={aidAndAttendance ? "1" : "0"}
                       >
                         <option value="0">No</option>
@@ -336,7 +343,7 @@ export function App() {
                 <div class="text-black">
                   <select
                     class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
-                    onChange={(e) => dependentParentsClicked(e.target.value)}
+                    onInput={(e) => dependentParentsClicked(e.target.value)}
                     value={dependentParents}
                   >
                     <option value="0">None</option>
@@ -347,15 +354,6 @@ export function App() {
               </div>
             </div>
 
-            <div class="flex justify-end my-4">
-              <button
-                data-modal-target="default-modal"
-                data-modal-toggle="default-modal"
-                class="bg-red-500 hover:bg-red-900 text-white font-md py-4 px-4 bebas lg:text-3xl"
-              >
-                Request Free Consultation
-              </button>
-            </div>
             <div
               id="default-modal"
               tabindex="-1"
