@@ -2,9 +2,15 @@ import { useEffect, useState } from 'preact/hooks'
 import { PartSelect } from './components'
 import PercentSelect from './components/PercentSelect'
 import RatingsBtn from './components/RatingsBtn'
+5
 
 export function App() {
   const [ratingId, setRatingId] = useState(1)
+  const [disabilityRating, setDisabilityRating] = useState({
+    bilateralFactor: undefined,
+    calculatedRating: undefined,
+    disabilityRating: undefined,
+  });
   // State for parts to highligt in body diagram
   const [part, setPart] = useState({
     head: false,
@@ -14,6 +20,7 @@ export function App() {
     lleg: false,
     rleg: false
   });
+  const [disabilityLoading, setDisabilityLoading] = useState(false);
   // State for current selected Body Part
   const [partDisplay, setPartDisplay] = useState('Others')
 
@@ -39,6 +46,7 @@ export function App() {
       right_leg: [],
       other: [],
     };
+
     ratings.forEach((elem) => {
       let thePart;
       /**
@@ -66,13 +74,22 @@ export function App() {
         default:
           thePart = 'other';
       }
+
       body[thePart].push(elem.rate);
     })
+
+    setDisabilityLoading(true);
+
     fetch('https://va-calc-be.onrender.com/calculator/disability-rating', {
       method: 'post',
+      headers: {
+        'Content-Type':'application/json'
+      },
       body: JSON.stringify(body),
     }).then((r)=>r.json()).then((res)=> {
-      console.log("res", res)
+      setDisabilityRating(res);
+    }).finally(()=> {
+      setDisabilityLoading(false);
     })
     return body
   }
@@ -94,7 +111,7 @@ export function App() {
         <div className='flex flex-col lg:flex-row'>
           
           {/* Instruction Block */}
-          <div class='pt-10 pb-[60px] lg:pe-[40px] ps-4 lg:pt-5 bg-slate-200 sm:w-full lg:w-2/6 flex flex-col relative lg:border-r-2 border-[#184997] gap-10 justify-center'>
+          <div class='pt-10 pb-[60px] lg:pe-[45px] ps-10 lg:pt-5 bg-slate-200 sm:w-full lg:w-2/6 flex flex-col relative lg:border-r-2 border-[#184997] gap-10 justify-center'>
 
             <div class='absolute bottom-0 right-2/4 translate-x-2/4 lg:translate-x-0 lg:bottom-auto lg:right-[-18px] lg:top-2/4 bebas bg-[#184997] flex px-3 text-xl pt-2 pb-1 lg:rotate-[270deg] text-white rounded-t-xl tracking-wider'>
               STEP 1
@@ -107,6 +124,7 @@ export function App() {
               Choose the specific body part affected by your disability and indicate the percentage of impairment from 0% to 100%.
               </span>
           </div>
+
           {/* Diagram and Percent Buttons */}
           <div class='w-full lg:w-2/4 flex flex-col sm:flex-row justify-evenly relative border-2 border-[#184997]'>
             <div class='border-1 w-full sm:w-1/2 lg:w-1/3 flex flex-col items-center'>
@@ -125,13 +143,12 @@ export function App() {
                   Total Disablity Rating
                 </div>
                  {/* Radial Progress Bar */}
-                <div class="relative w-40 h-40">
+                <div class="relative w-32 h-32">
                   <svg class="w-full h-full" viewBox="0 0 100 100">
 
                     <circle
                       class="text-gray-200 stroke-current"
                       stroke-width="10"
-                      
                       cx="50"
                       cy="50"
                       r="40"
@@ -146,20 +163,31 @@ export function App() {
                       cy="50"
                       r="40"
                       fill="transparent"
-                      stroke-dashoffset="calc(400 - (200 * 65) / 100)"
+                      stroke-dashoffset={"calc(400 - ("+ disabilityRating.disabilityRating/10 * 40 +" * 65) / 100)"}
                     ></circle>
-                    {/* Change increments by 40. 0 - 400 */}
-                    <text x="50" y="50" font-size="32" text-anchor="middle" alignment-baseline="middle" class='bebas'>70%</text>
-
+                    {/* Change increments by 40. (the 200 one) */}
+                    {disabilityLoading ? (
+                      <>Loading</>
+                    ):(
+                      <text 
+                      x="50" 
+                      y="50" 
+                      font-size="32" 
+                      text-anchor="middle" 
+                      alignment-baseline="middle" 
+                      class='bebas'>
+                        {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
+                    </text>
+                    )}
                   </svg>
                 </div>
               </div>
 
-              <div class='bebas text-3xl mt-4'>
+              <div class='bebas text-2xl mt-4'>
                 Total Monthly Compensation
               </div>
 
-              <div class='text-2xl mont mt-2'>
+              <div class='text-xl mont'>
                 $ 4,365.60
               </div>
 
