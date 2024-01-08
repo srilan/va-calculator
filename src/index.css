@@ -21,7 +21,7 @@
   fill:#29abe2;
 }
 .cls-2{
-  stroke:#64fff4;
+  stroke:#0a2c61;
   stroke-miterlimit:10;
   stroke-width:2.5px;
   cursor: pointer;
@@ -33,6 +33,10 @@
 
 .bebas {
   font-family: 'Bebas Neue', sans-serif;
+}
+
+.mont {
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -60,17 +64,36 @@ h1 {
 
 
 .btnHov:hover{
-  border-color: #bd8a5a;
+  border-color: #b52d38;
 }
 .btnHov:hover span {
-  color : #bd8a5a
+  color : #b52d38
 }
 
-#percContainer:after{
-  content: 'Ratings';
-  position: absolute;
-  font-family: 'Bebas Neue', sans-serif;
-  @apply h-full top-0 left-0 bg-[#C0DFA1] align-middle p-2 w-[70px] text-center text-lg text-black flex justify-center items-center
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.ratings{
+  margin-bottom: 10px;
+}
+
+.thrash {
+  top: -10px;
+  right: -10px;
+  border: 1px solid #575757;
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 400, 400;
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
 }
 
 @media (prefers-color-scheme: light) {
