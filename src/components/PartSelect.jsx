@@ -58,11 +58,11 @@ const PartSelect = ({part, setPart, partDisplay, setPartDisplay}) => {
       {/* <div class='p-5 w-full flex flex-col items-center'
       >
       </div> */}
-     <div class='w-2/3 relative pt-3'
+     <div class='w-2/3 lg:w-full relative pt-3'
         onMouseEnter={() => {setHovered(true)}}
         onMouseLeave={() => {setHovered(false)}}
      >
-      <div className="flex min-w-[130px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl"
+      <div className="flex min-w-[150px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl"
           >
             <span class='pe-2 none tracking-wide'> {partDisplay} </span>
             <img src={Down} alt="Arrow" class='w-4' />

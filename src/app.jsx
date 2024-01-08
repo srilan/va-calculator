@@ -39,20 +39,36 @@ export function App() {
         *NavBar here*
       </div>
 
-      <div class='flex flex-col w-full bg-white h-full py-12 px-5'>
+      <div class='flex flex-col w-full bg-white h-full py-12 px-10'>
 
-        <div className='flex'>
-          <div class='w-3/4 flex justify-center border-cyan-100'>
-            <div class='border-1 border-cyan-100 w-1/3 flex flex-col items-center'>
+        <div className='flex flex-col lg:flex-row'>
+          
+          {/* Instruction Block */}
+          <div class='pt-10 pb-[60px] lg:pe-[40px] ps-4 lg:pt-5 bg-slate-200 sm:w-full lg:w-2/6 flex flex-col relative lg:border-r-2 border-[#184997] gap-10 justify-center'>
+
+            <div class='absolute bottom-0 right-2/4 translate-x-2/4 lg:translate-x-0 lg:bottom-auto lg:right-[-18px] lg:top-2/4 bebas bg-[#184997] flex px-3 text-xl pt-2 pb-1 lg:rotate-[270deg] text-white rounded-t-xl tracking-wider'>
+              STEP 1
+            </div>
+              <span class='bebas text-4xl'>
+                BEGIN BY CHOOSING THE AREAS <span class='text-[#b52d38]'> WHERE YOU HAVE DISABILITIES </span>
+              </span>
+
+              <span class='mont text-lg font-medium pe-10'>
+              Choose the specific body part affected by your disability and indicate the percentage of impairment from 0% to 100%.
+              </span>
+          </div>
+          {/* Diagram and Percent Buttons */}
+          <div class='w-full lg:w-2/4 flex flex-col sm:flex-row justify-evenly relative border-2 border-[#184997]'>
+            <div class='border-1 w-full sm:w-1/2 lg:w-1/3 flex flex-col items-center lg:items-start'>
               <PartSelect part={part} setPart={setPart} partDisplay={partDisplay} setPartDisplay={setPartDisplay} />
             </div>
 
-            <div class=' w-1/3 flex flex-col items-center text-white justify-center' >
+            <div class=' w-full sm:w-1/2 lg:w-1/3 flex flex-col items-center text-white justify-center' >
               <PercentSelect btnRatingClick={ratingClicked} bodyPart={partDisplay} id={ratingId} setRatingId={setRatingId} />
             </div>
           </div>
 
-          <div class='md:w-1/3 flex flex-col p-5 bg-slate-300 items-center' >
+          <div class='lg:w-1/4 flex flex-col p-5 bg-slate-300 items-center' >
   
               <div class='flex flex-col w-full items-center border-b-2 border-slate-500 pb-3'>
                 <div class='text-3xl bebas'>
@@ -89,7 +105,7 @@ export function App() {
                 </div>
               </div>
 
-              <div className='bebas text-3xl mt-4'>
+              <div class='bebas text-3xl mt-4'>
                 Total Monthly Compensation
               </div>
 
@@ -100,9 +116,12 @@ export function App() {
           </div>
         </div>
 
-        {}
+        {/* Ratings Section */}
         <div className='flex w-full justify-center mt-6'>
-          <div className='w-full border-[#184997] bg-white ps-20 pt-3 pb-2 pe-3 relative text-white' id='percContainer' style={{borderWidth: '2px'}}>
+          <div className='w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 pt-3 pb-2 pe-3 relative text-white' id='percContainer' style={{borderWidth: '2px'}}>
+            <div class='h-full top-0 left-0 w-full h-[40px] lg:h-full bg-[#184997] align-middle p-2 lg:w-[70px] text-center text-sm font-semibold text-white flex justify-center items-center mont absolute'>
+              Ratings
+            </div>
             <div class=''>
               {
                 ratings.map((item)=> <RatingsBtn elem={item} removeMe={removeRating} />)

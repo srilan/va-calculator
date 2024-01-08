@@ -70,13 +70,6 @@ h1 {
   color : #b52d38
 }
 
-#percContainer:after{
-  content: 'Ratings';
-  position: absolute;
-  font-family: 'Montserrat', sans-serif;
-  @apply h-full top-0 left-0 bg-[#184997] align-middle p-2 w-[70px] text-center text-sm font-semibold text-white flex justify-center items-center
-}
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
