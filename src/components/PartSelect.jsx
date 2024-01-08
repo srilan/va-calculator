@@ -55,9 +55,6 @@ const PartSelect = ({part, setPart, partDisplay, setPartDisplay}) => {
 
   return (
     <>
-      {/* <div class='p-5 w-full flex flex-col items-center'
-      >
-      </div> */}
      <div class='w-2/3 lg:w-full relative pt-3'
         onMouseEnter={() => {setHovered(true)}}
         onMouseLeave={() => {setHovered(false)}}

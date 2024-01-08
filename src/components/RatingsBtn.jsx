@@ -1,7 +1,7 @@
 import {Close} from '../assets'
 
 const RatingsBtn = ({elem, removeMe}) => {
-    console.log(elem)
+
   return (
     <>
         <button class='ms-3 bg-whute text-sm ratings relative' style={{border: '1px solid', borderColor: '#575757'}}

@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { PartSelect } from './components'
 import PercentSelect from './components/PercentSelect'
 import RatingsBtn from './components/RatingsBtn'
@@ -24,14 +24,64 @@ export function App() {
   const ratingClicked = (rating, part,id) => {
     setRatings([ ...ratings, {rate: rating, part: part, id: id}])
   }
+
+  useEffect(()=> {
+    recalculate();
+  }, [ratings])
+
+  const recalculate = () => {
+    let body = {
+      head: [],
+      torso: [],
+      left_arm: [],
+      right_arm: [],
+      left_leg: [],
+      right_leg: [],
+      other: [],
+    };
+    ratings.forEach((elem) => {
+      let thePart;
+      /**
+       * use json
+       */
+      switch(elem.part){
+        case 'Head':
+          thePart = 'head';
+          break
+        case 'Tosro':
+          thePart = 'torso';
+          break;
+        case 'Left Arm':
+          thePart = 'left_arm'
+          break;
+        case 'Right Arm':
+          thePart = 'right_arm'
+          break;
+        case 'Left Leg':
+          thePart = 'left_leg';
+          break;
+        case 'Right Leg':
+          thePart = 'right_leg';
+          break;
+        default:
+          thePart = 'other';
+      }
+      body[thePart].push(elem.rate);
+    })
+    fetch('https://va-calc-be.onrender.com/calculator/disability-rating', {
+      method: 'post',
+      body: JSON.stringify(body),
+    }).then((r)=>r.json()).then((res)=> {
+      console.log("res", res)
+    })
+    return body
+  }
   
   // Remove rating
   const removeRating = (id) => {
     let newRates = ratings.filter((item)=> item.id != id);
     setRatings(newRates)
   }
-
-  console.log(ratings)
   
   return (
     <>
@@ -59,7 +109,7 @@ export function App() {
           </div>
           {/* Diagram and Percent Buttons */}
           <div class='w-full lg:w-2/4 flex flex-col sm:flex-row justify-evenly relative border-2 border-[#184997]'>
-            <div class='border-1 w-full sm:w-1/2 lg:w-1/3 flex flex-col items-center lg:items-start'>
+            <div class='border-1 w-full sm:w-1/2 lg:w-1/3 flex flex-col items-center'>
               <PartSelect part={part} setPart={setPart} partDisplay={partDisplay} setPartDisplay={setPartDisplay} />
             </div>
 
