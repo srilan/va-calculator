@@ -42,7 +42,6 @@ export function App() {
   }, [childrenAbove18, childrenUnder18]);
 
   const [ratingId, setRatingId] = useState(1);
-  const [ratingId, setRatingId] = useState(1);
   const [disabilityRating, setDisabilityRating] = useState({
     bilateralFactor: undefined,
     calculatedRating: undefined,
@@ -65,10 +64,6 @@ export function App() {
   const [ratings, setRatings] = useState([]);
 
   // function to add new ratings
-  const ratingClicked = (rating, part, id) => {
-    setRatings([...ratings, { rate: rating, part: part, id: id }]);
-  };
-
   const ratingClicked = (rating, part, id) => {
     setRatings([...ratings, { rate: rating, part: part, id: id }]);
   };
