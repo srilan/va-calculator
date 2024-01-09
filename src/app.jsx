@@ -176,7 +176,7 @@ export function App() {
                       text-anchor="middle" 
                       alignment-baseline="middle" 
                       class='bebas'>
-                        {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
+                        {disabilityRating.calculatedRating ? disabilityRating.disabilityRating+'':'0'}%
                     </text>
                     )}
                   </svg>
