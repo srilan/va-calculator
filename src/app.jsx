@@ -77,13 +77,9 @@ export function App() {
 
       body[thePart].push(elem.rate);
     })
-<<<<<<< HEAD
 
     setDisabilityLoading(true);
 
-=======
-    setDisabilityLoading(true);
->>>>>>> spike/preact
     fetch('https://va-calc-be.onrender.com/calculator/disability-rating', {
       method: 'post',
       headers: {
@@ -147,7 +143,7 @@ export function App() {
                   Total Disablity Rating
                 </div>
                  {/* Radial Progress Bar */}
-                <div class="relative w-32 h-32">
+                <div class="relative w-40 h-40">
                   <svg class="w-full h-full" viewBox="0 0 100 100">
 
                     <circle
@@ -167,15 +163,9 @@ export function App() {
                       cy="50"
                       r="40"
                       fill="transparent"
-<<<<<<< HEAD
                       stroke-dashoffset={"calc(400 - ("+ disabilityRating.disabilityRating/10 * 40 +" * 65) / 100)"}
                     ></circle>
                     {/* Change increments by 40. (the 200 one) */}
-=======
-                      stroke-dashoffset="calc(250)"
-                    ></circle>
-                  
->>>>>>> spike/preact
                     {disabilityLoading ? (
                       <>Loading</>
                     ):(
@@ -186,18 +176,14 @@ export function App() {
                       text-anchor="middle" 
                       alignment-baseline="middle" 
                       class='bebas'>
-<<<<<<< HEAD
                         {disabilityRating.calculatedRating?disabilityRating.disabilityRating+'':'0'}%
-=======
-                        {disabilityRating.calculatedRating?disabilityRating.calculatedRating:''}
->>>>>>> spike/preact
                     </text>
                     )}
                   </svg>
                 </div>
               </div>
 
-              <div class='bebas text-2xl mt-4'>
+              <div class='bebas text-2xl mt-5'>
                 Total Monthly Compensation
               </div>
 
