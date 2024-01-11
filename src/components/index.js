@@ -1,3 +1,3 @@
 import PartSelect from "./PartSelect";
-
-export { PartSelect }
+import Loader from "./Loader";
+export { PartSelect, Loader };

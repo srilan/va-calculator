@@ -54,7 +54,7 @@ function Dependencies({
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 MONTHLY PAYMENT AMOUNT:
-                <span style="color: #184997"> {monthlyPayment}$ </span>
+                <span style="color: #184997"> ${monthlyPayment} </span>
               </h2>
             </div>
           </div>
