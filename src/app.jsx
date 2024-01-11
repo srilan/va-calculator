@@ -196,7 +196,8 @@ export function App() {
 
         {/* Ratings Section */}
         <div className='flex w-full justify-center mt-6'>
-          <div className='w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 pb-2 pe-3 relative text-white' id='percContainer' style={{borderWidth: '2px'}}>
+          <div className='w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 pb-2 pe-3 relative text-black' id='percContainer' style={{borderWidth: '2px'}}>
+
             <div class='top-0 left-0 w-full h-[40px] lg:h-full bg-[#184997] align-middle p-2 lg:w-[70px] text-center text-sm font-semibold text-white flex justify-center items-center mont absolute'>
               Ratings
             </div>
