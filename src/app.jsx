@@ -1,5 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
-import { PartSelect } from "./components";
+import { Loader, PartSelect } from "./components";
 import PercentSelect from "./components/PercentSelect";
 import RatingsBtn from "./components/RatingsBtn";
 import Dependencies from "./components/Dependencies";
@@ -227,7 +227,7 @@ export function App() {
             <div class="flex flex-col w-full items-center border-b-2 border-slate-500 pb-3">
               <div class="text-3xl bebas">Total Disablity Rating</div>
               {/* Radial Progress Bar */}
-              <div class="relative w-40 h-40">
+              <div class="relative w-40 h-40 mb-4">
                 <svg class="w-full h-full" viewBox="0 0 100 100">
                   <circle
                     class="text-gray-200 stroke-current"
@@ -254,7 +254,7 @@ export function App() {
                   ></circle>
                   {/* Change increments by 40. (the 200 one) */}
                   {disabilityLoading ? (
-                    <>Loading</>
+                    <Loader />
                   ) : (
                     <text
                       x="50"
@@ -272,11 +272,30 @@ export function App() {
                   )}
                 </svg>
               </div>
+              <div class="flex flex-col items-center">
+                {disabilityRating.calculatedRating > 0 && (
+                  <div class="bebas text-xl">
+                    Calcualted Disablilty rating of{" "}
+                    <span class="text-2xl text-[#184997]">
+                      {disabilityRating.calculatedRating}%
+                    </span>
+                  </div>
+                )}
+                {disabilityRating.bilateralFactor > 0 && (
+                  <div class="bebas text-lg">
+                    *Bilateral Factor of{" "}
+                    <span class="text-[#184997] text-xl">
+                      {disabilityRating.bilateralFactor}
+                    </span>{" "}
+                    was applied.
+                  </div>
+                )}
+              </div>
             </div>
-
-            <div class="bebas text-2xl mt-5">Total Monthly Compensation</div>
-
-            <div class="text-2xl mont mt-2">$ {monthly.monthly}</div>
+            <div class="flex flex-col items-center">
+              <div class="bebas text-2xl mt-5">Total Monthly Compensation</div>
+              <div class="text-2xl mont mt-2">$ {monthly.monthly}</div>
+            </div>
           </div>
         </div>
 
