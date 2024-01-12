@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import * as routes from './routes/calculator';
+import * as componentRoutes from './routes/components';
+import path from 'path';
 
 const PORT = process.env.PORT || 9000
 //App Varaibles 
@@ -15,8 +17,9 @@ app.use(cors({
     origin: "*",
 })); 
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, '../public')));
 app.listen(PORT, async () => {
   console.log(`listening on port ${PORT}`);
 });
 app.use('/', routes.getCalculatorRoutes());
+app.use('/components', componentRoutes.getComponentRoutes());
