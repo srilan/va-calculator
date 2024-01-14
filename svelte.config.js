@@ -10,6 +10,10 @@ const config = {
     adapter: adapter(),
   },
   preprocess: vitePreprocess(),
+  onwarn: (warning, handler) => {
+    if (warning.code === "a11y-click-events-have-key-events") return;
+    handler(warning);
+  },
 };
 
 export default config;
