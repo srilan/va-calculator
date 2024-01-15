@@ -29,7 +29,7 @@ export const getCalculatorRoutes = () => {
     });
 
     routes.post("/poster", async (req, res) => {
-        let payloadObj = req.body;
+        let payloadObj = req.body.ratingsPayload;
         console.log(typeof payloadObj,payloadObj);
         
         let values = await fetch("https://va-calc-be.onrender.com/calculator/disability-rating", {

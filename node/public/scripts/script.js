@@ -69,52 +69,47 @@ let toPayload = () => {
 //     console.log(ratingsPayload);
 
 // }
-let hidden = document.getElementById('jsonContainer');
 
-function escapeHtml(unsafe)
-{
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
- }
-
- 
 for (let i=0; i<btnElements.length; i++){
     btnElements[i].addEventListener("click", () => {
+        console.log('before create')
         let percent = btnElements[i].querySelector('span').textContent.replace(/[\s*%]/g,"")
         let part = document.getElementById('bodyPart').textContent
         ratings.push({rate: percent, part: part, id: btnId})
         toPayload();
-
+        console.log('after payload')
         // Create the Button
+        console.log('before create')
         let newRating = document.createElement('button');
         newRating.setAttribute('class','ms-3 bg-white text-sm ratings relative');
         newRating.setAttribute('id',btnId);
-        //newRating.setAttribute('hx-vals','js:ratingsPayload')
+        newRating.setAttribute('hx-vals','js:ratingsPayload')
         newRating.setAttribute('hx-post','/poster')
-        //newRating.setAttribute('hx-on', 'htmx:afterRequest')
+        newRating.setAttribute('hx-on', 'htmx:afterRequest')
         newRating.setAttribute('hx-trigger', 'click')
         newRating.style.border = '1px solid #575757';
         newRating.innerHTML = `<span class='block text-xs'> <span class='inline-block py-1.5 px-4 text-sm mont text-black font-bold'> ${percent}% - ${part} </span> </span> <div class='absolute top-[-10px] right-[-10px] bg-[#FFFFFF] rounded-full p-1' style='border-color: #b52d38; border-width: 1px;'> <img src='./assets/close.svg'> </div> </button> `;
         ratingsArea.appendChild(newRating)
         console.log(ratingsPayload)
+        console.log('created')
+
 
         //Attach onClick event to remove the rating
-        newRating.addEventListener('htmx:beforeRequest', () => {
+        console.log('the htmxbefore')
 
+        newRating.addEventListener('htmx:beforeRequest', () => {
+            console.log('run inside htmxbefore')
             newRating.remove();
             ratings = ratings.filter((val)=> {console.log(val.id,newRating.id); return val.id != newRating.id} )
             toPayload();
             console.log(JSON.stringify(ratingsPayload), typeof JSON.stringify(ratingsPayload))
-            hidden.value = JSON.stringify(ratingsPayload).replace('')
+
             console.log("data1", ratingsPayload);
             console.log("data2", newRating);
 
         })
 
+        console.log('HTMX FINISH')
         htmx.process(newRating);
         ++btnId;
 
