@@ -81,3 +81,5 @@
     <Dependents />
   </div>
 </body>
+
+export const prerender = true;
