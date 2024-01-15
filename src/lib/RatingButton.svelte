@@ -4,8 +4,7 @@
 </script>
 
 <button
-  class="ms-3 bg-whute text-sm ratings relative"
-  style={{ border: "1px solid", borderColor: "#575757" }}
+  class="ms-3 bg-whute text-sm ratings relative border-[#575757] border-solid border-2"
   on:click
 >
   <span class="block text-xs">
@@ -14,8 +13,7 @@
     </span>
   </span>
   <div
-    class="absolute thrash bg-[#ffffff] rounded-full p-1"
-    style={{ borderColor: "#b52d38", borderWidth: "1px" }}
+    class="absolute thrash bg-[#ffffff] rounded-full p-1 border-[#b52d38] border-2"
   >
     <img src={Close} alt="" srcset="" />
   </div>
