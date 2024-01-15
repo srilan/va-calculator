@@ -4,7 +4,8 @@
   import { Down } from "./assets/index";
   import PartOption from "./PartOption.svelte";
 
-  let part = $Parts;
+  $: part = $Parts;
+
   let hovered = false;
 
   const onHover = (flag) => {
@@ -168,6 +169,9 @@
 
 <style lang="postcss">
   .highlight {
-    fill: "#b52d38";
+    fill: #b52d38;
+  }
+  .highlight:focus {
+    outline: 0;
   }
 </style>
