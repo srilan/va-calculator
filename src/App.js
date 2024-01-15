@@ -193,7 +193,10 @@ export function App() {
             </div>
             <span className="bebas text-4xl">
               BEGIN BY CHOOSING THE AREAS{" "}
-              <span className="text-[#b52d38]"> WHERE YOU HAVE DISABILITIES </span>
+              <span className="text-[#b52d38]">
+                {" "}
+                WHERE YOU HAVE DISABILITIES{" "}
+              </span>
             </span>
 
             <span className="mont text-lg font-medium pe-10">
@@ -272,11 +275,34 @@ export function App() {
                   )}
                 </svg>
               </div>
+
+              <div className="flex flex-col items-center">
+                {disabilityRating.calculatedRating > 0 && (
+                  <div className="bebas text-xl">
+                    Calcualted Disablilty rating of{" "}
+                    <span className="text-2xl text-[#184997]">
+                      {disabilityRating.calculatedRating}%
+                    </span>
+                  </div>
+                )}
+                {disabilityRating.bilateralFactor > 0 && (
+                  <div className="bebas text-lg">
+                    *Bilateral Factor of{" "}
+                    <span className="text-[#184997] text-xl">
+                      {disabilityRating.bilateralFactor}
+                    </span>{" "}
+                    was applied.
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className="bebas text-2xl mt-5">Total Monthly Compensation</div>
-
-            <div className="text-2xl mont mt-2">$ {monthly.monthly}</div>
+            <div className="flex flex-col items-center">
+              <div className="bebas text-2xl mt-5">
+                Total Monthly Compensation
+              </div>
+              <div className="text-2xl mont mt-2">$ {monthly.monthly}</div>
+            </div>
           </div>
         </div>
 
