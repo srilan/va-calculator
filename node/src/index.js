@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import * as routes from './routes/calculator';
 import * as componentRoutes from './routes/components';
 import path from 'path';
+import bodyParser from 'body-parser';
 
 const PORT = process.env.PORT || 9000
 //App Varaibles 
@@ -18,8 +19,12 @@ app.use(cors({
 })); 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.urlencoded({extended: true}))
+
+
 app.listen(PORT, async () => {
   console.log(`listening on port ${PORT}`);
 });
+
 app.use('/', routes.getCalculatorRoutes());
 app.use('/components', componentRoutes.getComponentRoutes());
