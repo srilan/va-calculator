@@ -42,18 +42,18 @@
   
   <div class="flex flex-col items-center mt-4">
     <% if (data.disabilityRating.calculatedRating > 0) { %>
-        <div class="bebas text-2xl lg:text-lg">
+        <div class="bebas text-2xl lg:text-xl">
           Calculated Disability Rating of 
-          <span class="text-[#184997] text-2xl lg:text-xl">
+          <span class="text-[#184997] text-2xl">
             <%= String(data.disabilityRating.calculatedRating) %>%
           </span>
         </div>
     <% } %>
 
     <% if (data.disabilityRating.bilateralFactor) { %>
-      <div class="bebas text-2xl lg:text-lg">
+      <div class="bebas text-2xl lg:text-xl">
         Bilateral Factor of
-        <span class="text-[#184997] text-2xl lg:text-xl">
+        <span class="text-[#184997] text-2xl">
           <%= String(data.disabilityRating.bilateralFactor) %>
         </span>
         was applied.
