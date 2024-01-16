@@ -44,6 +44,9 @@ export const getCalculatorRoutes = () => {
           .catch((err) => console.log(err));
 
         console.log(values);
+        res.status(200).send({
+            "message": "here"
+        })
             
 
     })

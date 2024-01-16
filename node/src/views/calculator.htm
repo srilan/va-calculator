@@ -75,46 +75,57 @@
             <div class='p-3 flex flex-col gap-4'>
               <!-- 10% & 20% -->
               <div class="flex gap-6">
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(10)"
+                >
                   <span class='bebas text-3xl text-[#184997]'> 10% </span>
                 </button>
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(20)">
                     <span class='bebas text-3xl text-[#184997]'> 20% </span>
                 </button>
               </div>
               <!-- 30% & 40% -->
               <div class="flex gap-6">
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(30)">
                     <span class='bebas text-3xl text-[#184997]'> 30% </span>
                 </button>
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(40)">
                     <span class='bebas text-3xl text-[#184997]'> 40% </span>
                 </button>
               </div>
               <!-- 50% & 60% -->
               <div class="flex gap-6">
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(50)">
                   <span class='bebas text-3xl text-[#184997]'> 50% </span>
                 </button>
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(60)">
                     <span class='bebas text-3xl text-[#184997]'> 60% </span>
                 </button>
               </div>
               <!-- 70% & 80% -->
               <div class="flex gap-6">
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(70)">
                   <span class='bebas text-3xl text-[#184997]'> 70% </span>
                 </button>
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(80)">
                     <span class='bebas text-3xl text-[#184997]'> 80% </span>
                 </button>
               </div>
               <!-- 90% & 100% -->
               <div class="flex gap-6">
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(90)">
                   <span class='bebas text-3xl text-[#184997]'> 90% </span>
                 </button>
-                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'>
+                <button class='border-2 text-black w-[100px] h-[50px] transition-all bg-transparent border-[#184997] btnHov'
+                  hx-on:click="addRatings(100)">
                     <span class='bebas text-3xl text-[#184997]'> 100% </span>
                 </button>
               </div>
@@ -127,49 +138,12 @@
         <!-- Disability Rating Area-->
 
         <div class="lg:w-1/4 flex" id="disabRating">
-        <div class="w-full flex flex-col p-5 bg-slate-300 items-center">
-          <div class="flex flex-col w-full items-center border-b-2 border-slate-500 pb-3">
-            <div class="text-3xl bebas">Total Disablity Rating</div>
-            <!-- Progress Bar na bilog -->
-            <div class="relative w-40 h-40">
-              <svg class="w-full h-full" viewBox="0 0 100 100">
-                <circle
-                  class="text-gray-200 stroke-current"
-                  stroke-width="10"
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="transparent"
-                ></circle>
-
-                <circle
-                  class="text-[#b52d38]  progress-ring__circle stroke-current"
-                  stroke-width="10"
-                  stroke-linecap="round"
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="transparent"
-                  stroke-dashoffset= "calc(400 - ( 40 * 65) / 100)"
-                ></circle>
-
-                  <text
-                    x="50"
-                    y="50"
-                    font-size="32"
-                    text-anchor="middle"
-                    alignment-baseline="middle"
-                    class="bebas"
-                  >
-                    10%
-                  </text>
-
-              </svg>
-            </div>
-          </div>
-          <fragment src="/components/total-compensation">
-
-          </fragment>
+        <div class="w-full flex flex-col p-5 bg-slate-300 items-center" 
+          hx-post="/components/disability-rating" 
+          hx-trigger="trigger-recalculate from:document"
+          hx-vals="js:{ratings:toPayload()}" 
+          hx-swap="innerHTML"
+        >
         </div>
       </div>
 
@@ -186,7 +160,7 @@
             Ratings
           </div>
           
-          <div id="ratingsArea" class="min-h-[45px]">
+          <div id="ratingsArea" class="min-h-[45px]" hx-post="/components/ratings" hx-trigger="trigger-rating from:document" hx-vals="js:{ratings:getRatingsData()}" hx-swap="innerHTML">
             <!-- Rating Buttons Here -->
           </div>
 
