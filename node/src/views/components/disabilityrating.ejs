@@ -21,7 +21,7 @@
         cy="50"
         r="40"
         fill="transparent"
-        stroke-dashoffset= "calc(400 - ( 40 * 65) / 100)"
+        stroke-dashoffset= "<%= 'calc(400 - (' + (data.disabilityRating.disabilityRating/10) * 40 + ' * 65) / 100)'%>"
       ></circle>
 
         <text
@@ -32,12 +32,38 @@
           alignment-baseline="middle"
           class="bebas"
         >
-          <%=disabilityRating.disabilityRating%>%
+          <%= (data.disabilityRating.disabilityRating == 0) ? '0' : data.disabilityRating.disabilityRating+'%'  %>
+
         </text>
 
     </svg>
   </div>
-</div>
-<fragment src="/components/total-compensation">
+  
+  <div class="flex flex-col items-center mt-4">
+    <% if (data.disabilityRating.calculatedRating > 0) { %>
+        <div class="bebas text-2xl lg:text-lg">
+          Calculated Disability Rating of 
+          <span class="text-[#184997] text-2xl lg:text-xl">
+            <%= String(data.disabilityRating.calculatedRating) %>%
+          </span>
+        </div>
+    <% } %>
 
-</fragment>
+    <% if (data.disabilityRating.bilateralFactor) { %>
+      <div class="bebas text-2xl lg:text-lg">
+        Bilateral Factor of
+        <span class="text-[#184997] text-2xl lg:text-xl">
+          <%= String(data.disabilityRating.bilateralFactor) %>
+        </span>
+        was applied.
+      </div>
+    <% } %>
+  </div>
+
+</div>
+
+
+<div class="flex flex-col items-center">
+  <div class="bebas text-2xl mt-5">Total Monthly Compensation</div>
+  <div class="text-2xl mont mt-2">$ <%= data.monthly.monthly %></div>
+</div>

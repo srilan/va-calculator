@@ -11,13 +11,6 @@ export const getComponentRoutes = () => {
     routes.get("/nav", (req, res)=> {
         res.status(200).sendFile(p.join(__dirname, "../views/components/nav.htm"));
     });
-    routes.get('/sample', (req, res) => {
-        res.status(200).sendFile(p.join(__dirname,'../views/components/partOption.htm'))
-    
-    })
-    routes.get('/optionsLeave', (req, res) => {
-        res.status(200).sendFile(p.join(__dirname, '../views/components/empty.htm'))
-    })
     routes.post('/ratings', (req, res) => {
         const ratings = JSON.parse(req.body.ratings);
         //res.status(200).send({})
@@ -25,26 +18,82 @@ export const getComponentRoutes = () => {
             ratings: ratings.data
         });
     })
+
+    routes.post('/bodyDiag', (req, res) => {
+        let highlights = JSON.parse(req.body.highlight)
+        console.log(highlights, 'hi')
+        res.render('components/bodySVG', {
+            highlight: highlights
+        });
+    })
     
     routes.post('/disability-rating', async (req, res) => {
-        const ratings = req.body.ratings;
+        const ratings = JSON.parse(req.body.ratings);
+        console.log(ratings)
         /**
          * use .env
          */
         const service = await fetch("https://va-calc-be.onrender.com/calculator/disability-rating",
             {
                 method: "POST",
-                body: ratings,
+                body: JSON.stringify(ratings.rating),
                 headers: {
                     "Content-Type": "application/json" 
                 }
             }
         );
         const disabilityRating = await service.json();
-        console.log("dis", disabilityRating, ratings)
+        ratings.dependent.disabilityRating = disabilityRating.disabilityRating;
+
+        const depService = await fetch("https://va-calc-be.onrender.com/calculator/dependency", 
+            {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(ratings.dependent),
+            })
+
+        const monthly = await depService.json()
+        console.log("dis", disabilityRating, monthly)
         res.render("components/disabilityrating", {
-            disabilityRating: disabilityRating
+            data: {disabilityRating,monthly}
         });
+
+
+    });
+
+    routes.post('/step2Rate', async (req, res) => {
+        const ratings = JSON.parse(req.body.ratings);
+        console.log('inside Rate step 2 ')
+
+        const service = await fetch("https://va-calc-be.onrender.com/calculator/disability-rating",
+            {
+                method: "POST",
+                body: JSON.stringify(ratings.rating),
+                headers: {
+                    "Content-Type": "application/json" 
+                }
+            }
+        );
+        const disabilityRating = await service.json();
+        ratings.dependent.disabilityRating = disabilityRating.disabilityRating;
+
+        const depService = await fetch("https://va-calc-be.onrender.com/calculator/dependency", 
+            {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(ratings.dependent),
+            })
+
+        const monthly = await depService.json()
+        console.log("dis", disabilityRating, monthly)
+        res.render("components/step2Rating", {
+            data: {disabilityRating,monthly}
+        });
+
     })
 
     return routes;

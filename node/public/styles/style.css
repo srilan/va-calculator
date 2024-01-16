@@ -28,3 +28,19 @@ font-family: "Montserrat", sans-serif;
 .btnHov:hover span {
     color: #b52d38;
 }
+
+.highlight {
+  fill: #b52d38;
+}
+
+#partOptions {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 400, 400;
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}

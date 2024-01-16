@@ -1,12 +1,12 @@
 <div>
     <% ratings.forEach(function(rating) { %>
         <button class="ms-3 bg-white text-sm ratings relative"
-            style="border: solid #575757"
+            style="border: 1px solid #575757"
             hx-on:click="removeRating(<%=rating.id%>)"
         >
             <span class='block text-xs'> 
                 <span class='inline-block py-1.5 px-4 text-sm mont text-black font-bold'> 
-                    <%=rating.rate%> - <%=rating.part%>
+                    <%=rating.rate%>% - <%=rating.part%>
                 </span> 
             </span> 
             <div class='absolute top-[-10px] right-[-10px] bg-[#FFFFFF] rounded-full p-1' style='border-color: #b52d38; border-width: 1px;'> 
