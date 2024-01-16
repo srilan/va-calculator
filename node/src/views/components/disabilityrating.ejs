@@ -32,11 +32,12 @@
           alignment-baseline="middle"
           class="bebas"
         >
-          <%= (data.disabilityRating.disabilityRating == 0) ? '0' : data.disabilityRating.disabilityRating+'%'  %>
+          <%= (data.disabilityRating.disabilityRating == 0) ? '0' : data.disabilityRating.disabilityRating+'%' %>
 
         </text>
-
+        
     </svg>
+    <div class="custom-loader absolute top-1/2 left-1/2 translate-x-[-50%] htmx-indicator"></div>
   </div>
   
   <div class="flex flex-col items-center mt-4">
