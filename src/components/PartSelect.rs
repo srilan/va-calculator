@@ -1,69 +1,24 @@
 use yew::prelude::*;
 
+
 #[derive(Properties, Clone, PartialEq)]
 pub struct Props {
     pub part: String,
-    pub set_part: Callback<String>,
+    // pub set_part: Callback<String>,
     pub part_display: String,
-    pub set_part_display: Callback<String>,
+    // pub set_part_display: Callback<String>,
 }
 
 #[function_component(PartSelect)]
-
-
-pub fn part_select() -> Html {
-//   let hovered = use_state(|| false); 
-//   let highlight = "#b52d38";
-
-//   let part_click = Callback::from(move |part_str: String| {
-//     let mut new_parts = props.part.clone();
-//     let mut display = "Others".to_string();
-
-//     match part_str.as_str() {
-//         "head" => {
-//             new_parts.head = true;
-//             display = "Head".to_string();
-//         }
-//         "larm" => {
-//             new_parts.larm = true;
-//             display = "Left Arm".to_string();
-//         }
-//         "rarm" => {
-//             new_parts.rarm = true;
-//             display = "Right Arm".to_string();
-//         }
-//         "torso" => {
-//             new_parts.torso = true;
-//             display = "Torso".to_string();
-//         }
-//         "lleg" => {
-//             new_parts.lleg = true;
-//             display = "Left Leg".to_string();
-//         }
-//         "rleg" => {
-//             new_parts.rleg = true;
-//             display = "Right Leg".to_string();
-//         }
-//         _ => {
-//             display = "Others".to_string();
-//         }
-//     }
-
-//     props.set_part.emit(new_parts);
-//     props.set_part_display.emit(display);
-//     set_hovered.emit(false);
-// });
-
-  
-  
+pub fn part_select(props: &Props) -> Html {
+    
     html! {
-        <>
-            <div class="w-2/3 lg:w-full relative pt-3">
-
-            </div>
+      <>
+        <div class="w-2/3 lg:w-full relative pt-3">
+          </div>
             <div class="flex min-w-[150px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl">
-                <span class="pe-2 none tracking-wide"> {"{PartDisplay}"} </span>
-                <img alt="Arrow" class="w-4" />
+              <span class="pe-2 none tracking-wide"> {&props.part_display} </span>
+              <img alt="Arrow" class="w-4" />
             </div>
             
             <div class="my-4">

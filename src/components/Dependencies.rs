@@ -2,8 +2,32 @@ use yew::prelude::*;
 
 #[function_component(Dependencies)]
 pub fn dependencies() -> Html {
+  let children_under_18 = use_state(|| 0);
+  let children_above_18 = use_state(|| 0);
+  let has_spouse = use_state(|| false);
+  let aid_and_attendance = use_state(|| false);
+  let dependent_parents = use_state(|| 0);
+  let monthly = use_state(|| 0);
+
+  let handle_under_18 = {
+    let children_under_18 = children_under_18.clone();
+    Callback::from(move |_| children_under_18.set(*children_under_18 + 1))
+    
+  };
+
+  let handle_above_18 = {
+    let children_above_18 = children_above_18.clone();
+    Callback::from(move |_| children_above_18.set(*children_above_18 + 1))
+  };
+
     html!{
       <div class="px-6 pt-5 mt-5">
+          <button onclick={Callback::from(handle_under_18)}>{"ADD CU18"}</button>
+          <div>{*children_under_18}</div>
+          <button onclick={Callback::from(handle_above_18)}>{"ADD CA18"}</button>
+          <div>{*children_above_18}</div>
+          
+
         <div class="relative bg-white border-t-4 border-[#184997] px-6 pt-5">
           <div class="absolute right-2/4 translate-x-2/4 lg:translate-x-0 top-[-40px] bebas bg-[#184997] flex px-3 text-xl pt-2 pb-1 text-white rounded-t-xl tracking-wider">
             {"STEP 2"}
