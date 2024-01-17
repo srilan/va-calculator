@@ -7,9 +7,11 @@ const PartSelect = (props) => {
   const [hovered, setHovered] = createSignal(false);
   const highlight = { fill: "#b52d38" };
 
+  const {part} = props;
+
   // Onclick callback to change the highlighted body part.
   const partClick = (partStr) => {
-    let newParts = props.part;
+    let newParts = part;
     let display = "Others";
 
     // Reseting every part to false
