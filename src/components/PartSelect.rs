@@ -11,7 +11,7 @@ pub struct Props {
 #[function_component(PartSelect)]
 
 
-pub fn part_select(props: &Props) -> Html {
+pub fn part_select() -> Html {
 //   let hovered = use_state(|| false); 
 //   let highlight = "#b52d38";
 
@@ -62,7 +62,7 @@ pub fn part_select(props: &Props) -> Html {
 
             </div>
             <div class="flex min-w-[150px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl">
-                <span class="pe-2 none tracking-wide"> {&props.part_display} </span>
+                <span class="pe-2 none tracking-wide"> {"{PartDisplay}"} </span>
                 <img alt="Arrow" class="w-4" />
             </div>
             

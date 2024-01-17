@@ -1,3 +1,6 @@
 pub mod TrajectorLogo;
 pub mod PartSelect;
 pub mod Dependencies;
+pub mod PercentSelect;
+pub mod PercBtn;
+pub mod RatingsBtn;
