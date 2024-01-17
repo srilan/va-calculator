@@ -95,6 +95,10 @@ h1 {
   transform-origin: 50% 50%;
 }
 
+.highlight {
+  fill : #b52d38;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

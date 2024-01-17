@@ -3,7 +3,7 @@ import PercBtn from "./PercBtn"
 
 const PercentSelect = (props) => {
 
-    const {bodyPart, btnRatingClick, id, setRatingId} = props;
+    let {bodyPart, btnRatingClick, id, setRatingId} = props;
 
   return (
     <>
