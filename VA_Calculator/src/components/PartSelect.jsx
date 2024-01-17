@@ -7,7 +7,7 @@ const PartSelect = (props) => {
   const [hovered, setHovered] = createSignal(false);
   const highlight = { fill: "#b52d38" };
 
-  const {part} = props;
+  const {part, setPart, partDisplay, setPartDisplay} = props;
 
   // Onclick callback to change the highlighted body part.
   const partClick = (partStr) => {
@@ -49,8 +49,8 @@ const PartSelect = (props) => {
         break;
     }
 
-    props.setPart(newParts);
-    props.setPartDisplay(display);
+    setPart(newParts);
+    setPartDisplay(display);
     setHovered(false);
   };
   // Get the Full word of body part (display purposes)
@@ -67,7 +67,7 @@ const PartSelect = (props) => {
         }}
       >
         <div className="flex min-w-[150px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl">
-          <span className="pe-2 none tracking-wide"> {props.partDisplay} </span>
+          <span className="pe-2 none tracking-wide"> {partDisplay} </span>
           <img src={Down} alt="Arrow" className="w-4" />
         </div>
         {hovered && (

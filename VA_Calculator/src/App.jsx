@@ -1,4 +1,5 @@
-import { createSignal, createEffect } from "solid-js"; // {useState, useEffect}
+import { createSignal, createEffect} from "solid-js"; // {useState, useEffect}
+import {createStore} from 'solid-js/store';
 import { PartSelect } from "./components";
 import PercentSelect from "./components/PercentSelect";
 import RatingsBtn from "./components/RatingsBtn";
@@ -40,7 +41,7 @@ export default function App() {
   const [partDisplay, setPartDisplay] = createSignal("Others");
 
   // State for array of ratings selected to display
-  const [ratings, setRatings] = createSignal([]);
+  const [ratings, setRatings] = createStore([]);
 
   let x = 0;
   const under18Clicked = (under18) => {
@@ -128,40 +129,36 @@ export default function App() {
       other: [],
     };
 
-    if (Array.isArray(ratings)) {
-      ratings.forEach((elem) => {
-        let thePart;
-        /**
-         * use json
-         */
-        switch (elem.part) {
-          case "Head":
-            thePart = "head";
-            break;
-          case "Tosro":
-            thePart = "torso";
-            break;
-          case "Left Arm":
-            thePart = "left_arm";
-            break;
-          case "Right Arm":
-            thePart = "right_arm";
-            break;
-          case "Left Leg":
-            thePart = "left_leg";
-            break;
-          case "Right Leg":
-            thePart = "right_leg";
-            break;
-          default:
-            thePart = "other";
-        }
+    ratings.forEach((elem) => {
+      let thePart;
+      /**
+       * use json
+       */
+      switch (elem.part) {
+        case "Head":
+          thePart = "head";
+          break;
+        case "Tosro":
+          thePart = "torso";
+          break;
+        case "Left Arm":
+          thePart = "left_arm";
+          break;
+        case "Right Arm":
+          thePart = "right_arm";
+          break;
+        case "Left Leg":
+          thePart = "left_leg";
+          break;
+        case "Right Leg":
+          thePart = "right_leg";
+          break;
+        default:
+          thePart = "other";
+      }
 
-        body[thePart].push(elem.rate);
-      });
-    } else {
-      console.error('ratings is not an array');
-    }
+      body[thePart].push(elem.rate);
+    });
     setDisabilityLoading(true);
 
     //TODO: check
@@ -172,18 +169,13 @@ export default function App() {
       },
       body: JSON.stringify(body),
     })
-      .then((res) => res.json()) // parse the response as JSON
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setDisabilityRating(data);
-        } else {
-          console.error('Server did not return an array');
-        }
+      .then((r) => r.json())
+      .then((res) => {
+        setDisabilityRating(res);
       })
       .finally(() => {
         setDisabilityLoading(false);
       });
-    console.log(disabilityRating)
     return body;
   };
 
@@ -332,6 +324,7 @@ export default function App() {
               Ratings
             </div>
 
+{/* error i think? */}
             <div className="">
               {Array.isArray(ratings) && ratings.map((item) => (
                 <RatingsBtn elem={item} removeMe={removeRating} />
