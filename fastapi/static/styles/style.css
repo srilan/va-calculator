@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sen&family=Montserrat:wght@400;500;700&display=swap');
+
+.sen {
+font-family: "Sen", sans-serif;
+}
+
+.bebas {
+font-family: "Bebas Neue", sans-serif;
+}
+
+.mont {
+font-family: "Montserrat", sans-serif;
+}
+
+.cls-1,
+.cls-2 {
+  fill: #29abe2;
+}
+.cls-2 {
+  stroke: #0a2c61;
+  stroke-miterlimit: 10;
+  stroke-width: 2.5px;
+  cursor: pointer;
+}
+.btnHov:hover {
+    border-color: #b52d38;
+}
+.btnHov:hover span {
+    color: #b52d38;
+}
+
+.highlight {
+  fill: #b52d38;
+}
+
+#partOptions {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 400, 400;
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Loader */
+.custom-loader {
+  width:75px;
+  height:15px;
+  background: 
+    radial-gradient(circle closest-side,#184997 90%,#0000) 0%   50%,
+    radial-gradient(circle closest-side,#184997 90%,#0000) 50%  50%,
+    radial-gradient(circle closest-side,#184997 90%,#0000) 100% 50%;
+  background-size:calc(100%/3) 100%;
+  background-repeat: no-repeat;
+  animation:d7 1s infinite linear;
+}
+@keyframes d7 {
+    33%{background-size:calc(100%/3) 0%  ,calc(100%/3) 100%,calc(100%/3) 100%}
+    50%{background-size:calc(100%/3) 100%,calc(100%/3) 0%  ,calc(100%/3) 100%}
+    66%{background-size:calc(100%/3) 100%,calc(100%/3) 100%,calc(100%/3) 0%  }
+}
