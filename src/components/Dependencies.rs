@@ -1,5 +1,14 @@
+use serde::Deserialize;
 use yew::prelude::*;
 
+#[derive(Clone, PartialEq, Deserialize)]
+struct Data {
+  children_under_18: usize,
+  children_above_18: usize,
+  has_spouse: bool,
+  aid_and_attendance: bool,
+  dependent_parents: usize,
+}
 
 #[function_component(Dependencies)]
 pub fn dependencies() -> Html {
