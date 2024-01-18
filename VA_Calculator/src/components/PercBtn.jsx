@@ -7,7 +7,6 @@ const PercBtn = (props) => {
     //onClick={() => {clickFunc(rate,bodyPart,id); setRatingId(++id)}}>
     onClick={() => {clickFunc(rate,bodyPart(),id()); setRatingId((current) =>{
       current = current + 1;
-      console.log(current)
       return current;
     });}}>
         <span class='bebas text-3xl text-[#184997]'> {rate}% </span>

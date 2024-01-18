@@ -1,22 +1,21 @@
-
 function Dependencies(props) {
 
-  const {
+  let {
     childrenUnder18,
     childrenAbove18,
     hasSpouse,
     aidAndAttendance,
     dependentParents,
-    monthlyPayment,
     under18Clicked,
     above18Clicked,
     MaritalStatusClicked,
     aidAndAttendanceClicked,
     dependentParentsClicked,
-    calculatedRating,
-    disabilityRating
   } = props;
+
+
   
+
   return (
     <div class="px-6 pt-5 mt-5">
       <div class="relative bg-white border-t-4 border-[#184997] px-6 pt-5">
@@ -44,19 +43,19 @@ function Dependencies(props) {
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 COMBINED DISABILITY PERCENTAGE:
-                <span style="color: #184997"> {calculatedRating}% </span>
+                <span style="color: #184997"> {props.calculatedRating}% </span>
               </h2>
             </div>
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 CURRENT DISABILITY RATING:
-                <span style="color: #184997"> {disabilityRating}% </span>
+                <span style="color: #184997"> {props.disabilityRating}% </span>
               </h2>
             </div>
             <div class="bebas text-3xl my-2 lg:my-5">
               <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                 MONTHLY PAYMENT AMOUNT:
-                <span style="color: #184997"> {monthlyPayment}$ </span>
+                <span style="color: #184997"> {props.monthlyPayment}$ </span>
               </h2>
             </div>
           </div>
@@ -76,7 +75,7 @@ function Dependencies(props) {
                   <select
                     class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
                     onInput={(e) => under18Clicked(e.target.value)}
-                    value={childrenUnder18}
+                    value={childrenUnder18()}
                   >
                     <option value="0">None</option>
                     <option value="1">1</option>
@@ -107,7 +106,7 @@ function Dependencies(props) {
                   <select
                     class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
                     onInput={(e) => above18Clicked(e.target.value)}
-                    value={childrenAbove18}
+                    value={childrenAbove18()}
                   >
                     <option value="0">None</option>
                     <option value="1">1</option>
@@ -138,7 +137,7 @@ function Dependencies(props) {
                     <select
                       class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
                       onInput={(e) => MaritalStatusClicked(e.target.value)}
-                      value={hasSpouse ? "1" : "0"}
+                      value={hasSpouse()? "1" : "0"}
                     >
                       <option value="0">Single</option>
                       <option value="1">Married</option>
@@ -165,7 +164,7 @@ function Dependencies(props) {
                       <select
                         class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
                         onInput={(e) => aidAndAttendanceClicked(e.target.value)}
-                        value={aidAndAttendance ? "1" : "0"}
+                        value={aidAndAttendance()? "1" : "0"}
                       >
                         <option value="0">No</option>
                         <option value="1">Yes</option>
@@ -191,7 +190,7 @@ function Dependencies(props) {
                   <select
                     class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
                     onInput={(e) => dependentParentsClicked(e.target.value)}
-                    value={dependentParents}
+                    value={dependentParents()}
                   >
                     <option value="0">None</option>
                     <option value="1">1</option>

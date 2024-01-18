@@ -44,13 +44,13 @@ export default function App() {
   const [partDisplay, setPartDisplay] = createSignal("Others");
 
   // State for array of ratings selected to display
-  const [ratings, setRatings] = createStore([]);
+  const [ratings, setRatings] = createSignal([]);
 
   let x = 0;
   //ID increment
 
   const under18Clicked = (under18) => {
-    setChildrenUnder18(Number(under18));
+    setChildrenUnder18((curr) => {curr = Number(under18); return curr});
   };
 
   const above18Clicked = (above18) => {
@@ -71,36 +71,27 @@ export default function App() {
     setDependentParents(Number(dependentParents));
   };
 
-  createEffect(()=>{
 
-  },[part])
 
   const calculateMonthlyPayment = () => { };
   //reactive
   createEffect(() => {
-    console.log("updating");
     dependency();
-  }, [
-    disabilityRating,
-    childrenUnder18,
-    childrenAbove18,
-    hasSpouse,
-    aidAndAttendance,
-    dependentParents,
-  ]);
+  });
+
 
   const dependency = () => {
     let data = {
-      disabilityRating: disabilityRating.calculatedRating
-        ? disabilityRating.disabilityRating + ""
+      disabilityRating: disabilityRating().calculatedRating
+        ? disabilityRating().disabilityRating + ""
         : 0,
-      childrenUnder18: childrenUnder18,
-      childrenAbove18: childrenAbove18,
-      hasSpouse: hasSpouse,
-      aidAndAttendance: aidAndAttendance,
-      dependentParents: dependentParents,
+      childrenUnder18: childrenUnder18(),
+      childrenAbove18: childrenAbove18(),
+      hasSpouse: hasSpouse(),
+      aidAndAttendance: aidAndAttendance(),
+      dependentParents: dependentParents(),
     };
-
+ 
     //TODO: chekcing
     fetch("https://va-calc-be.onrender.com/calculator/dependency", {
       method: "POST",
@@ -111,14 +102,15 @@ export default function App() {
     })
       .then((r) => r.json())
       .then((res) => {
-        setMonthly(res);
+        setMonthly((curr) => {curr = res; return curr});
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err));  
   };
+
 
   // function to add new ratings
   const ratingClicked = (rating, part, id) => {
-    setRatings([...ratings, { rate: rating, part: part, id: id }]);
+    setRatings([...ratings(), { rate: rating, part: part, id: id }]);
   };
 
   //reactive
@@ -137,7 +129,7 @@ export default function App() {
       other: [],
     };
 
-    ratings.forEach((elem) => {
+    ratings().forEach((elem) => {
       let thePart;
       /**
        * use json
@@ -189,7 +181,7 @@ export default function App() {
 
   // Remove rating
   const removeRating = (id) => {
-    let newRates = ratings.filter((item) => item.id != id);
+    let newRates = ratings().filter((item) => item.id != id);
     setRatings(newRates);
   };
 
@@ -267,12 +259,12 @@ export default function App() {
                     fill="transparent"
                     stroke-dashoffset={
                       "calc(400 - (" +
-                      (disabilityRating.disabilityRating / 10) * 40 +
+                      (disabilityRating().disabilityRating / 10) * 40 +
                       " * 65) / 100)"
                     }
                   ></circle>
                   {/* Change increments by 40. (the 200 one) */}
-                  {disabilityLoading ? (
+                  {disabilityLoading() ? (
                     <>Loading</>
                   ) : (
                     <text
@@ -283,8 +275,8 @@ export default function App() {
                       alignment-baseline="middle"
                       class="bebas"
                     >
-                      {((disabilityRating?.calculatedRating || 0) > 0
-                        ? (disabilityRating?.disabilityRating || 0)
+                      {((disabilityRating()?.calculatedRating || 0) > 0
+                        ? (disabilityRating()?.disabilityRating || 0)
                         : 0) + "%"}
                     </text>
                   )}
@@ -292,19 +284,19 @@ export default function App() {
               </div>
 
               <div class="flex flex-col items-center">
-                {disabilityRating.calculatedRating > 0 && (
+                {disabilityRating().calculatedRating > 0 && (
                   <div class="bebas text-xl">
                     Calcualted Disablilty rating of{" "}
                     <span class="text-2xl text-[#184997]">
-                      {disabilityRating.calculatedRating}%
+                      {disabilityRating().calculatedRating}%
                     </span>
                   </div>
                 )}
-                {disabilityRating.bilateralFactor > 0 && (
+                {disabilityRating().bilateralFactor > 0 && (
                   <div class="bebas text-lg">
                     *Bilateral Factor of{" "}
                     <span class="text-[#184997] text-xl">
-                      {disabilityRating.bilateralFactor}
+                      {disabilityRating().bilateralFactor}
                     </span>{" "}
                     was applied.
                   </div>
@@ -316,7 +308,7 @@ export default function App() {
               <div class="bebas text-2xl mt-5">
                 Total Monthly Compensation
               </div>
-              <div class="text-2xl mont mt-2">$ {monthly.monthly}</div>
+              <div class="text-2xl mont mt-2">$ {monthly().monthly}</div>
             </div>
           </div>
         </div>
@@ -324,7 +316,7 @@ export default function App() {
         { }
         <div class="flex w-full justify-center mt-6">
           <div
-            class="w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 pb-2 pe-3 relative text-black"
+            class="w-full border-[#184997] bg-white lg:ps-20 lg:pt-5 pt-16 border-2 pb-2 pe-3 relative text-black"
             id="percContainer"
             style={{ borderWidth: "2px" }}
           >
@@ -332,10 +324,10 @@ export default function App() {
               Ratings
             </div>
             <div class="">
-            {ratings.map((item) => (
+            {ratings().map((item) => (
                 <RatingsBtn elem={item} removeMe={removeRating} />
               ))}
-              {ratings.length == 0 && (
+              {ratings().length == 0 && (
                 <div class="opacity-0 pointer-events-none">
                   <RatingsBtn
                     elem={{ part: "", rate: 0, id: 0 }}
@@ -354,16 +346,16 @@ export default function App() {
           hasSpouse={hasSpouse}
           aidAndAttendance={aidAndAttendance}
           dependentParents={dependentParents}
-          monthlyPayment={monthly.monthly}
+          monthlyPayment={monthly().monthly}
           under18Clicked={under18Clicked}
           above18Clicked={above18Clicked}
           MaritalStatusClicked={MaritalStatusClicked}
           aidAndAttendanceClicked={aidAndAttendanceClicked}
           dependentParentsClicked={dependentParentsClicked}
-          calculatedRating={disabilityRating.calculatedRating}
+          calculatedRating={disabilityRating().calculatedRating}
           disabilityRating={
-            disabilityRating.calculatedRating
-              ? disabilityRating.disabilityRating + ""
+            disabilityRating().calculatedRating
+              ? disabilityRating().disabilityRating + ""
               : "0"
           }
         />
