@@ -1,6 +1,8 @@
-use yew::prelude::*;
-use crate::components::PartOption::{PartOption, _PartOptionProps::pclick_event};
 
+use yew::prelude::*;
+use gloo::console::log;
+use crate::components::PartOption::{PartOption, _PartOptionProps::pclick_event};
+use crate::components::SvgFiles::DownArrow;
 #[derive(Properties, Clone, PartialEq)]
 pub struct Props {
     pub part: String,
@@ -11,7 +13,6 @@ pub struct Props {
 
 #[function_component(PartSelect)]
 pub fn part_select(props: &Props) -> Html {
-
   pub struct Part {
     torso: bool,
     head: bool,
@@ -21,69 +22,83 @@ pub fn part_select(props: &Props) -> Html {
     rleg: bool,
   }
 
+  let show_dropdown = use_state(|| false);
   let hovered = use_state(|| false);
+  let dropdown = show_dropdown.clone();
   const HIGHLIGHT: &'static str = "fill: #b52d38;";
 
-  let partClick = |part: String| {
-    let newParts = part.clone();
-    println!("You clicked on part: {}", newParts);
+  let svg_content = include_str!("../assets/down.svg");
+
+  //Logic for clicked parts in the body diagram
+  let part_click = |part: String| {
+    let new_parts = part.clone();
+    log!("Hello", new_parts)
+
   };
 
-    
     html! {
       <>
         <div class="w-2/3 lg:w-full relative pt-3">
           </div>
             <div>
-            <div class="flex min-w-[150px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl">
+            
+            <div class="cursor-pointer flex min-w-[150px] justify-between ps-4 pe-3 pt-1.5 py-1 bg-[#184997] mt-2 w-full text-white bebas md:text-xl lg:text-2xl rounded-tl-xl rounded-br-xl"
+              onclick={
+                let dropdown = show_dropdown.clone();
+                Callback::from(move |_| {dropdown.set(!*dropdown);})
+              }
+            >
+
               <span class="pe-2 none tracking-wide"> {&props.part_display} </span>
-              <img alt="Arrow" class="w-4" />
+              <DownArrow />
             </div>
 
-            <div className="bg-white w-full py-3 ps-4 pe-2 absolute border-2 border-[#184997]">
-                //Insert Partoptions Here
-                <PartOption
-                  text="Torso"
-                  pclick_event={Callback::from(move |_| partClick("torso".to_string()))}
-                />
+            if *show_dropdown {
+              <div class="bg-white w-full py-3 ps-4 pe-2 absolute border-2 border-[#184997]">
+              //Insert Partoptions Here
+              <PartOption
+                text="Head"
+                pclick_event={Callback::from(move |_| part_click("head".to_string()))}
+              />
 
-                <PartOption
-                  text="Left Arm"
-                  pclick_event={Callback::from(move |_| partClick("leftleg".to_string()))}
-                />
+              <PartOption
+                text="Left Arm"
+                pclick_event={Callback::from(move |_| part_click("larm".to_string()))}
+              />
 
-                <PartOption
-                  text="Right Arm"
-                  pclick_event={Callback::from(move |_| partClick("leftleg".to_string()))}
-                />
+              <PartOption
+                text="Right Arm"
+                pclick_event={Callback::from(move |_| part_click("rarm".to_string()))}
+              />
 
-                <PartOption
-                  text="Torso"
-                  pclick_event={Callback::from(move |_| partClick("leftleg".to_string()))}
-                />
+              <PartOption
+                text="Torso"
+                pclick_event={Callback::from(move |_| part_click("torso".to_string()))}
+              />
 
-                <PartOption
-                  text="Left Leg"
-                  pclick_event={Callback::from(move |_| partClick("leftleg".to_string()))}
-                />
+              <PartOption
+                text="Left Leg"
+                pclick_event={Callback::from(move |_| part_click("lleg".to_string()))}
+              />
 
-                <PartOption
-                  text="Right Leg"
-                  pclick_event={Callback::from(move |_| partClick("leftleg".to_string()))}
-                />
+              <PartOption
+                text="Right Leg"
+                pclick_event={Callback::from(move |_| part_click("rleg".to_string()))}
+              />
 
-                <PartOption
-                  text="Others"
-                  pclick_event={Callback::from(move |_| partClick("leftleg".to_string()))}
-                />
-              </div>
+              <PartOption
+                text="Others"
+                pclick_event={Callback::from(move |_| part_click("others".to_string()))}
+              />
+            </div>
+            }
 
             <div class="my-4">
               <svg
                 id="body"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 176.52 360.93"
-                className="w-36"
+                class="w-36"
               >
                 <path
                   id="Torso"
@@ -121,7 +136,7 @@ pub fn part_select(props: &Props) -> Html {
 
                 <path
                   id="LLeg"
-                  className="cls-2"
+                  class="cls-2"
                   d="M617.56,348.39c-.36-9.4-2.1-18.6-3.45-27.86,0,.26.07.52.1.77a22.92,22.92,0,0,0-4.48-.46c-13.8,0-25,12.65-25,28.25,0,.35,0,.7,0,1.05a1,1,0,0,1,.11.35c.94,15.8,1.67,31.61,2.89,47.39A102,102,0,0,0,591,416.21a29.17,29.17,0,0,1,.48,13.92c-1,4.95-2.21,10-2,15,.68,19.73,1.53,39.44-.22,59.16-.14,1.55,1.4,3.27,2.2,4.88.65,1.32,1.4,2.59,2.05,3.91,1.14,2.34,1.91,5,3.53,6.91.67.82,3.09.18,4.71.24a7,7,0,0,1,1,.23c4.33.89,7.94-.45,11.38-3.51-6-8.88-11.48-17.76-11.63-28.64-.07-5.16-.21-10.46.81-15.47,1.73-8.47,4.74-16.68,6.51-25.14,1.94-9.34,4.12-18.81,1.55-28.41-2.53-9.41-2-18.6.83-27.88A131.27,131.27,0,0,0,617.56,348.39Z"
                   transform="translate(-495.77 -161.37)"
                   // style={part.lleg ? highlight : {}}
