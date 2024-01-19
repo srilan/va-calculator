@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use crate::components::TrajectorLogo::TrajectorLogo;
-use crate::components::Dependencies::Dependencies;
 
+use crate::panels::Dependencies::Dependencies;
 use crate::panels::Instruction::Instruction;
 use crate::panels::Select::Select;
 use crate::panels::Percentage::Percentage;

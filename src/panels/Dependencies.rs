@@ -1,44 +1,89 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
+use wasm_bindgen_futures::wasm_bindgen::JsValue;
 use yew::prelude::*;
+use gloo::console::log;
+use gloo_net::http::Request;
+
 
 #[derive(Clone, PartialEq, Deserialize)]
 struct Data {
-  children_under_18: usize,
-  children_above_18: usize,
+  disabilityRating: i32,
+  children_under_18: i32,
+  children_above_18: i32,
   has_spouse: bool,
   aid_and_attendance: bool,
-  dependent_parents: usize,
+  dependent_parents: i32,
 }
 
 #[function_component(Dependencies)]
 pub fn dependencies() -> Html {
-  let children_under_18 = use_state(|| 0);
-  let children_above_18 = use_state(|| 0);
+  let disabilityRating = use_state(|| 20);
+  let children_under_18 = use_state(|| 3);
+  let children_above_18 = use_state(|| 4);
   let has_spouse = use_state(|| false);
   let aid_and_attendance = use_state(|| false);
-  let dependent_parents = use_state(|| 0);
-  let monthly = use_state(|| 0);
+  let dependent_parents = use_state(|| 2);
 
-  println!("{}", children_under_18.to_string());
+  log!(*children_under_18);
 
-  // pang post nung mga variables to api to solve and assign yung result sa dependency variable
-  // let dependency = use_state( || vec![]);
-  // {
-  //   let dependency = dependency.clone();
-  //   use_effect_with((), move |_| {
-  //     let dependency = dependency.clone();
-  //     wasm_bindgen_futures::spawn_local(async move {
-  //       let fetched_dependencies: Vec<Data> = Request::post("https://va-calc-be.onrender.com/calculator/dependency")
-  //       .send()
-  //       .await
-  //       .unwrap()
-  //       .json()
-  //       .await
-  //       .unwrap();
-  //       dependency.set(fetched_dependencies);
-  //     })
-  //   })
-  // }
+//   let data_array = vec![
+//     Data {
+//         children_under_18: 1,
+//         children_above_18: 2,
+//         has_spouse: true,
+//         aid_and_attendance: false,
+//         dependent_parents: 2,
+//     }
+// ];
+ 
+// let client = reqwest::Client::new();
+// let res = client.post("https://va-calc-be.onrender.com/calculator/dependency")
+//     .json(&data_array)
+//     .send()
+//     .await?;
+  let dependency = use_state( || vec![]);
+  {
+    let data = Data {
+      disabilityRating: *disabilityRating,
+      children_under_18: *children_under_18,
+      children_above_18: *children_above_18,
+      has_spouse: *has_spouse,
+      aid_and_attendance: *aid_and_attendance,
+      dependent_parents: *dependent_parents,
+    };
+
+    #[derive(Clone, PartialEq, Deserialize, Serialize)]
+    struct Data {
+      disabilityRating: i32,
+      children_under_18: i32,
+      children_above_18: i32,
+      has_spouse: bool,
+      aid_and_attendance: bool,
+      dependent_parents: i32,
+    }
+
+    let dependency = dependency.clone();
+    let data = data.clone();
+    use_effect_with((), move |_| {
+      let dependency = dependency.clone();
+      let data = data.clone();
+      wasm_bindgen_futures::spawn_local(async move {
+        let fetched_dependencies: Vec<Data> = Request::post("https://va-calc-be.onrender.com/calculator/dependency")
+        .json(&data)
+        .expect("REASON")
+        .send()
+        .await
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+        dependency.set(fetched_dependencies);
+      })
+    })
+    }
+
+  
+
 
     html!{
       <div class="px-6 pt-5 mt-5">         
