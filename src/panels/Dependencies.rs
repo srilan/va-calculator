@@ -1,48 +1,46 @@
 use serde::{Deserialize, Serialize};
-use wasm_bindgen_futures::wasm_bindgen::JsValue;
 use yew::prelude::*;
-use gloo::console::log;
+// use gloo::console::log;
 use gloo_net::http::Request;
+// use gloo_utils::window;
+// use web_sys::HtmlInputElement;
+use yew::{
+  // events::Event,
+  function_component, html, use_mut_ref, use_state,
+  // Callback, TargetCast,
+};
 
-
+// this defines the structure data
 #[derive(Clone, PartialEq, Deserialize)]
 struct Data {
   disabilityRating: i32,
-  children_under_18: i32,
   children_above_18: i32,
   has_spouse: bool,
   aid_and_attendance: bool,
   dependent_parents: i32,
 }
 
+//
+#[derive(Deserialize, Debug)]
+struct Response {
+    monthly: String,
+}
+
+//start of func
 #[function_component(Dependencies)]
 pub fn dependencies() -> Html {
-  let disabilityRating = use_state(|| 20);
-  let children_under_18 = use_state(|| 3);
+  //usestates
+  let disabilityRating = use_state(|| 50);
+  let children_under_18 = use_state(|| 0);
+  let children_under_18_count = use_mut_ref(|| 0);
   let children_above_18 = use_state(|| 4);
   let has_spouse = use_state(|| false);
   let aid_and_attendance = use_state(|| false);
   let dependent_parents = use_state(|| 2);
+  let dependency = use_state(|| vec![]);
 
-  log!(*children_under_18);
-
-//   let data_array = vec![
-//     Data {
-//         children_under_18: 1,
-//         children_above_18: 2,
-//         has_spouse: true,
-//         aid_and_attendance: false,
-//         dependent_parents: 2,
-//     }
-// ];
- 
-// let client = reqwest::Client::new();
-// let res = client.post("https://va-calc-be.onrender.com/calculator/dependency")
-//     .json(&data_array)
-//     .send()
-//     .await?;
-  let dependency = use_state( || vec![]);
   {
+    //passing the usestates to data structure
     let data = Data {
       disabilityRating: *disabilityRating,
       children_under_18: *children_under_18,
@@ -62,31 +60,47 @@ pub fn dependencies() -> Html {
       dependent_parents: i32,
     }
 
+    //putting the use_states in variable "data" then posting it to server to return {monthly}
     let dependency = dependency.clone();
     let data = data.clone();
     use_effect_with((), move |_| {
       let dependency = dependency.clone();
       let data = data.clone();
       wasm_bindgen_futures::spawn_local(async move {
-        let fetched_dependencies: Vec<Data> = Request::post("https://va-calc-be.onrender.com/calculator/dependency")
+        let fetched_dependencies: Response = Request::post("https://va-calc-be.onrender.com/calculator/dependency")
         .json(&data)
-        .expect("REASON")
+        .expect("INTERNAL ERROR ")
         .send()
         .await
         .unwrap()
         .json()
         .await
         .unwrap();
-        dependency.set(fetched_dependencies);
+        dependency.set(vec![fetched_dependencies]);
       })
     })
     }
 
+    //IMPORTANT vvvvvv
+    // needs a function that will get the value whatever option user 
+    // chooses at lines 157 - 172 to update use_state "children_under_18" 
+
+    // let u18click = {
+    //   let children_under_18 = *children_under_18.clone();
+    //   Callback::from(move |e: Event| {
+    //     let input: HtmlInputElement = e.target_unchecked_into();
+    //     children_under_18.set(input.value());
+    //   })
+    // };
   
+  //to output the monthly income
+    let dep = dependency.iter().map(|dependency| html! {
+      <p key={dependency.monthly.clone()}>{format!("{}", dependency.monthly)}</p>
+    }).collect::<Html>();
 
-
+    //frontend
     html!{
-      <div class="px-6 pt-5 mt-5">         
+      <div class="px-6 pt-5 mt-5">     
         <div class="relative bg-white border-t-4 border-[#184997] px-6 pt-5">
           <div class="absolute right-2/4 translate-x-2/4 lg:translate-x-0 top-[-40px] bebas bg-[#184997] flex px-3 text-xl pt-2 pb-1 text-white rounded-t-xl tracking-wider">
             {"STEP 2"}
@@ -124,7 +138,7 @@ pub fn dependencies() -> Html {
               <div class="bebas text-3xl my-2 lg:my-5">
                 <h2 class="mx-auto text-3xl lg:text-4xl" style="color: #000000;">
                   {"MONTHLY PAYMENT AMOUNT:"}
-                  <span style="color: #184997"> {"${monthlyPayment}"} </span>
+                  <span style="color: #184997"> {"$"}{dep} </span>
                 </h2>
               </div>
             </div>
@@ -142,8 +156,7 @@ pub fn dependencies() -> Html {
                   <div class="text-black">
                     <select
                       class="border bg-gray-200 text-black px-3 py-2 mt-1 mb-1 text-sm w-30"
-                      // onInput={(e) => under18Clicked(e.target.value)}
-                      // value={childrenUnder18}
+                    
                     >
                       <option value="0">{"None"}</option>
                       <option value="1">{"1"}</option>

@@ -12,3 +12,5 @@ serde = { version = "1.0", features = ["derive"] }
 wasm-bindgen-futures = "0.4"
 serde_json = "1.0.111"
 gloo = "0.11"
+gloo-utils = "0.2.0"
+web-sys = "0.3.67"
